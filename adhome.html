@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مِـداد | Medad</title>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+<style>
+    @font-face {
+        font-family: 'Doran';
+        src: url('font/Doran-Regular.woff2') format('woff2'),
+             url('font/Doran-Regular.woff') format('woff'),
+             url('font/Doran-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Doran';
+        src: url('font/Doran-Bold.woff2') format('woff2'),
+             url('font/Doran-Bold.woff') format('woff'),
+             url('font/Doran-Bold.ttf') format('truetype');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    :root {
+        --accent: #E8D1A7;
+        --burgundy: #7B1E3A;
+        --burgundy-light: rgba(123, 30, 58, 0.08);
+        --text-dark: #2D2D2D;
+        --text-light: #555555;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --shadow-hover: 0 6px 18px rgba(123, 30, 58, 0.15);
+        --success: #28a745;
+        --error: #dc3545;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Almarai', 'Arial', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.05)), 
+                    url('image/BACKGROUND.png') center/cover no-repeat fixed;
+        color: #333;
+        line-height: 1.6;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(248, 248, 248, 0.85);
+        z-index: -1;
+    }
+
+    .main-header{
+      background: transparent;
+      padding: 12px 0;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .header-shell{
+      width: min(1100px, calc(100% - 24px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 100;
+    }
+
+    .hamburger {
+        font-size: 28px;
+        cursor: pointer;
+        color: var(--burgundy);
+        background: none;
+        border: none;
+        justify-self: start;
+        padding: 8px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+    }
+
+    .hamburger:hover {
+        background: var(--burgundy-light);
+        transform: scale(1.1);
+    }
+
+    .header-center {
+      justify-self: center;
+    }
+
+    .brand-image {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      background: transparent;
+      display: inline-block;
+    }
+
+    @media (max-width: 600px){
+      .header-shell{ 
+        grid-template-columns: auto 1fr auto; 
+        padding: 6px 10px;
+      }
+      .brand-image {
+        width: 35px;
+        height: 35px;
+      }
+      .hamburger {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+      }
+    }
+
+    .nav-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .nav-menu.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .menu-content {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(123, 30, 58, 0.1);
+      min-width: 300px;
+    }
+
+    .menu-content a {
+      display: block;
+      font-size: 22px;
+      color: var(--burgundy);
+      text-decoration: none;
+      margin: 20px 0;
+      font-weight: 600;
+      font-family: 'Doran', 'Arial', sans-serif;
+      transition: all 0.3s ease;
+      padding: 12px 25px;
+      border-radius: 12px;
+    }
+
+    .menu-content a:hover {
+      color: white;
+      background: var(--burgundy);
+      transform: translateX(-10px);
+      box-shadow: 0 5px 15px rgba(123, 30, 58, 0.3);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      font-size: 32px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      color: var(--burgundy);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 10px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-btn:hover {
+      background: var(--burgundy);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: calc(100vh - 200px);
+      padding: 40px 20px;
+    }
+
+    .profile-container {
+      max-width: 700px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 40px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(123, 30, 58, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--burgundy), var(--accent), var(--burgundy));
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: -200% 0; }
+      50% { background-position: 200% 0; }
+    }
+
+    .profile-container:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-5px);
+    }
+
+    .profile-image-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .profile-container img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--burgundy-light);
+      box-shadow: 0 8px 20px rgba(123, 30, 58, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .profile-container img:hover {
+      transform: scale(1.05);
+      border-color: var(--burgundy);
+    }
+
+    .profile-container h2 {
+      color: var(--burgundy);
+      font-family: 'Doran', 'Arial', sans-serif;
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .profile-container p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .profile-info {
+      text-align: right;
+      margin: 25px 0;
+    }
+
+    .info-item {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: var(--burgundy-light);
+      border-radius: 12px;
+      border-right: 4px solid var(--burgundy);
+    }
+
+    .info-label {
+      font-weight: 700;
+      color: var(--burgundy);
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .info-value {
+      color: var(--text-dark);
+      font-size: 1rem;
+    }
+
+    .edit-form {
+      text-align: right;
+      margin-top: 30px;
+      display: none;
+    }
+
+    .edit-form.active {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      text-align: right;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid rgba(123, 30, 58, 0.1);
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--burgundy);
+      box-shadow: 0 0 0 4px rgba(123, 30, 58, 0.1);
+    }
+
+    .date-input {
+      direction: ltr;
+      text-align: right;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .save-btn {
+      background: linear-gradient(135deg, var(--burgundy), #5a152c);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 14px 35px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-family: 'Doran', 'Arial', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+    }
+
+    .save-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+    }
+
+    .cancel-btn {
+      background: transparent;
+      color: var(--text-light);
+      border: 2px solid var(--text-light);
+      border-radius: 25px;
+      padding: 14px 35px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-family: 'Doran', 'Arial', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .cancel-btn:hover {
+      background: var(--text-light);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .edit-btn {
+      background: linear-gradient(135deg, var(--burgundy), #5a152c);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 14px 35px;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      cursor: pointer;
+      font-family: 'Doran', 'Arial', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .edit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+    }
+
+    .preferences {
+      text-align: center;
+      margin-top: 35px;
+      padding: 25px;
+      background: var(--burgundy-light);
+      border-radius: 16px;
+      border: 1px solid rgba(123, 30, 58, 0.1);
+    }
+
+    .preferences h3 {
+      color: var(--burgundy);
+      margin-bottom: 20px;
+      font-family: 'Doran', 'Arial', sans-serif;
+      font-size: 1.4rem;
+    }
+
+    .notification-options {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .notification-options label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .notification-options label:hover {
+      background: rgba(123, 30, 58, 0.05);
+    }
+
+    .notification-options input[type="checkbox"] {
+      accent-color: var(--burgundy);
+      transform: scale(1.2);
+    }
+
+    .notification-display {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .notification-display .notification-item {
+      display: inline-block;
+      background: var(--burgundy-light);
+      padding: 8px 16px;
+      margin: 5px;
+      border-radius: 20px;
+      color: var(--burgundy);
+      font-weight: 600;
+      border: 1px solid rgba(123, 30, 58, 0.2);
+    }
+
+    .message {
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+      font-weight: 600;
+      text-align: center;
+      display: none;
+    }
+
+    .message.success {
+      background-color: rgba(40, 167, 69, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(40, 167, 69, 0.3);
+    }
+
+    .message.error {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: var(--error);
+      border: 1px solid rgba(220, 53, 69, 0.3);
+    }
+
+    .image-upload-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .image-upload-btn {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background: var(--burgundy);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      display: none; 
+    }
+
+    .image-upload-btn.active {
+      display: flex; 
+    }
+
+    .image-upload-input {
+      display: none;
+    }
+
+
+    .logout-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logout-modal.show {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .logout-content {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 40px 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(123, 30, 58, 0.2);
+        min-width: 350px;
+        max-width: 90%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .logout-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 2px solid transparent;
+        border-radius: 20px;
+        background: linear-gradient(45deg, var(--burgundy), transparent, var(--burgundy), transparent, var(--burgundy));
+        background-size: 400% 400%;
+        animation: borderAnimation 3s linear infinite;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @keyframes borderAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .logout-content::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
+        background: white;
+        border-radius: 18px;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .logout-content h3 {
+        color: var(--burgundy);
+        margin-bottom: 20px;
+        font-family: 'Doran', 'Arial', sans-serif;
+        font-size: 1.5rem;
+        font-weight: bold;
+        position: relative;
+        z-index: 2;
+    }
+
+    .logout-content p {
+        color: var(--text-light);
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        position: relative;
+        z-index: 2;
+    }
+
+    .logout-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
+    }
+
+    .confirm-logout-btn {
+        background: linear-gradient(135deg, var(--burgundy), #5a152c);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-family: 'Doran', 'Arial', sans-serif;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+        min-width: 120px;
+    }
+
+    .confirm-logout-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+    }
+
+    .cancel-logout-btn {
+        background: transparent;
+        color: var(--text-light);
+        border: 2px solid var(--text-light);
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-family: 'Doran', 'Arial', sans-serif;
+        transition: all 0.3s ease;
+        min-width: 120px;
+    }
+
+    .cancel-logout-btn:hover {
+        background: var(--text-light);
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    .main-footer {
+      background-color: #ebe2db;
+      width: 100%;
+      padding: 30px 16px 16px;
+      margin-top: 60px;
+    }
+
+
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-left h3 {
+      color: var(--burgundy);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .footer-icons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+	  
+    }
+
+
+
+    .icon-box {
+      width: 40px; 
+      height: 40px;
+      
+      color:var(--burgundy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .icon-box:hover {
+      background-color: var(--burgundy);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+    }
+
+    .footer-center img.footer-logo {
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+    .footer-center p {
+      font-weight: 600;
+      color: var(--burgundy);
+      font-size: 1rem;
+    }
+
+    .footer-right {
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      color: var(--burgundy);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .profile-container {
+        margin: 20px;
+        padding: 30px 20px;
+      }
+      
+      .profile-container h2 {
+        font-size: 1.8rem;
+      }
+      
+      .notification-options {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .menu-content {
+        min-width: 280px;
+        padding: 30px 20px;
+      }
+      
+      .menu-content a {
+        font-size: 20px;
+        padding: 10px 20px;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+      
+      .save-btn, .cancel-btn {
+        width: 100%;
+      }
+      
+      .info-item {
+        padding: 12px;
+      }
+
+      .logout-content {
+        min-width: 280px;
+        padding: 30px 20px;
+      }
+      
+      .logout-actions {
+        flex-direction: column;
+      }
+      
+      .confirm-logout-btn,
+      .cancel-logout-btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-container {
+        margin: 15px;
+        padding: 25px 15px;
+      }
+      
+      .profile-container img {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .preferences {
+        padding: 20px 15px;
+      }
+      
+      .footer-container {
+        flex-direction: column;
+        gap: 25px;
+      }
+      
+      .close-btn {
+        top: 20px;
+        left: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 28px;
+      }
+    }
+</style>
+</head>
+
+<body>
+
+<header class="main-header">
+  <div class="header-shell">   
+    <div class="header-start">
+      <img class="brand-image" src="image/LOGO SW.png" alt="Medad Logo">
+    </div>
+    
+    <div class="header-center"></div>
+    
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</header>
+
+<nav class="nav-menu" id="navMenu">
+  <button class="close-btn" id="closeBtn">&times;</button>
+  <div class="menu-content">
+    <a href="adhome.html">الملف الشخصي</a>
+    <a href="admin.html">إدارة الفعاليات والاندية</a>
+    <a id="logoutLink">تسجيل خروج</a>
+  </div>
+</nav>
+
+<main>
+  <section class="profile-container">
+    <div id="successMessage" class="message success"></div>
+    <div id="errorMessage" class="message error"></div>
+    
+    <div class="profile-image-container">
+      <img id="profileImage" src="image/user.jpg" alt="صورة المسؤول">
+      <button class="image-upload-btn" id="imageUploadBtn" title="تغيير الصورة">+</button>
+      <input type="file" id="imageUploadInput" class="image-upload-input" accept="image/jpeg,image/png,image/jpg">
+    </div>
+    <h2 id="adminName">عبير السهلي</h2>
+    <p id="adminBio">مسؤول عن تنظيم ومتابعة الفعاليات والأندية، وضمان سير المنصة بسلاسة.</p>
+
+    <div class="profile-info" id="profileInfo">
+      <div class="info-item">
+        <div class="info-label">البريد الإلكتروني</div>
+        <div class="info-value" id="emailValue">admin@medad.com</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">تاريخ الميلاد</div>
+        <div class="info-value" id="birthdateValue">١٦-٠٦-٢٠٠٤</div>
+      </div>
+      
+      <div class="notification-display" id="notificationDisplay">
+        <div class="info-label">نوع الإشعارات المفضلة</div>
+        <div id="notificationValues">
+          <span class="notification-item">إشعارات داخل المنصة</span>
+          <span class="notification-item">بريد إلكتروني</span>
+        </div>
+      </div>
+    </div>
+
+    <form id="editForm" class="edit-form">
+      <div class="form-group">
+        <label for="editName" class="form-label">الاسم الكامل</label>
+        <input type="text" id="editName" class="form-input" value="عبير السهلي">
+      </div>
+
+      <div class="form-group">
+        <label for="editEmail" class="form-label">البريد الإلكتروني</label>
+        <input type="email" id="editEmail" class="form-input" value="admin@medad.com">
+      </div>
+
+      <div class="form-group">
+        <label for="editBirthdate" class="form-label">تاريخ الميلاد</label>
+        <input type="date" id="editBirthdate" class="form-input date-input" value="2004-06-16">
+      </div>
+
+      <div class="form-group">
+        <label for="editBio" class="form-label">نبذة عني</label>
+        <textarea id="editBio" class="form-input" rows="4">مسؤول عن تنظيم ومتابعة الفعاليات والأندية، وضمان سير المنصة بسلاسة.</textarea>
+      </div>
+
+      <div class="preferences">
+        <h3>نوع الإشعارات</h3>
+        <div class="notification-options">
+          <label>
+            <input type="checkbox" id="inweb" name="notification" value="إشعارات داخل المنصة" checked>
+            إشعارات داخل المنصة
+          </label>
+          <label>
+            <input type="checkbox" id="sms" name="notification" value="رسائل قصيرة (SMS)">
+            رسائل قصيرة (SMS)
+          </label>
+          <label>
+            <input type="checkbox" id="email" name="notification" value="البريد الإلكتروني" checked>
+            البريد الإلكتروني
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="save-btn">حفظ التغييرات</button>
+        <button type="button" class="cancel-btn" id="cancelEdit">إلغاء</button>
+      </div>
+    </form>
+
+    <button class="edit-btn" id="editProfileBtn">تعديل الملف الشخصي</button>
+  </section>
+
+  <div class="logout-modal" id="logoutModal">
+      <div class="logout-content">
+          <h3>تأكيد تسجيل الخروج</h3>
+          <p>هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟</p>
+          <div class="logout-actions">
+              <button class="confirm-logout-btn" id="confirmLogout">تأكيد</button>
+              <button class="cancel-logout-btn" id="cancelLogout">إلغاء</button>
+          </div>
+      </div>
+  </div>
+</main>
+
+
+
+
+
+
+<footer class="main-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>تواصل معنا</h3>
+      <div class="footer-icons">
+        <a href="https://x.com/MedadKsu" class="icon-box" title="X">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d=" M18.244 2H21L14.126 10.088 22 22h-5.905l-4.67-6.726L6.08 22H3l7.31-8.433L2 2h6.08l4.132 5.897L18.244 2zM7.118 4l9.764 13.997h1.999L9.12 4H7.118z"/>
+          </svg>
+        </a>
+        <a href="" class="icon-box" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+          </svg>
+        </a>
+       
+      </div>
+    </div>
+
+    <div class="footer-center">
+      <img src="image/LOGO SW.png" alt="شعار مداد" class="footer-logo">
+      <p>© جميع الحقوق محفوظة 2025</p>
+    </div>
+
+    <div class="footer-right">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+      </svg>
+      <span>المملكة العربية السعودية</span>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+const closeBtn = document.getElementById('closeBtn');
+const logoutLink = document.getElementById('logoutLink');
+const logoutModal = document.getElementById('logoutModal');
+const confirmLogoutBtn = document.getElementById('confirmLogout');
+const cancelLogoutBtn = document.getElementById('cancelLogout');
+const editProfileBtn = document.getElementById('editProfileBtn');
+const editForm = document.getElementById('editForm');
+const cancelEditBtn = document.getElementById('cancelEdit');
+const adminName = document.getElementById('adminName');
+const adminBio = document.getElementById('adminBio');
+const profileInfo = document.getElementById('profileInfo');
+const emailValue = document.getElementById('emailValue');
+const birthdateValue = document.getElementById('birthdateValue');
+const notificationValues = document.getElementById('notificationValues');
+const profileImage = document.getElementById('profileImage');
+const imageUploadBtn = document.getElementById('imageUploadBtn');
+const imageUploadInput = document.getElementById('imageUploadInput');
+const successMessage = document.getElementById('successMessage');
+const errorMessage = document.getElementById('errorMessage');
+
+let adminData = {
+    name: "عبير السهلي",
+    email: "admin@medad.com",
+    birthdate: "١٦-٠٦-٢٠٠٤",
+    bio: "مسؤول عن تنظيم ومتابعة الفعاليات والأندية، وضمان سير المنصة بسلاسة.",
+    notifications: ["إشعارات داخل المنصة", "البريد الإلكتروني"]
+};
+
+hamburger.addEventListener('click', () => {
+  navMenu.classList.add('show');
+});
+
+closeBtn.addEventListener('click', () => {
+  navMenu.classList.remove('show');
+});
+
+editProfileBtn.addEventListener('click', () => {
+  profileInfo.style.display = 'none';
+  editForm.classList.add('active');
+  editProfileBtn.style.display = 'none';
+  
+  imageUploadBtn.classList.add('active');
+  
+  document.getElementById('editName').value = adminData.name;
+  document.getElementById('editEmail').value = adminData.email;
+  document.getElementById('editBio').value = adminData.bio;
+  
+  const birthdateParts = adminData.birthdate.split('-');
+  const formattedBirthdate = `${birthdateParts[2]}-${birthdateParts[1].padStart(2, '0')}-${birthdateParts[0].padStart(2, '0')}`;
+  document.getElementById('editBirthdate').value = formattedBirthdate;
+  
+  const notificationCheckboxes = document.querySelectorAll('input[name="notification"]');
+  notificationCheckboxes.forEach(checkbox => {
+    checkbox.checked = adminData.notifications.includes(checkbox.value);
+  });
+});
+
+cancelEditBtn.addEventListener('click', () => {
+  editForm.classList.remove('active');
+  profileInfo.style.display = 'block';
+  editProfileBtn.style.display = 'block';
+  
+  imageUploadBtn.classList.remove('active');
+  hideMessages();
+});
+
+logoutLink.addEventListener('click', function(e) {
+  e.preventDefault();
+  logoutModal.classList.add('show');
+  navMenu.classList.remove('show');
+});
+
+confirmLogoutBtn.addEventListener('click', function() {
+  logoutModal.classList.remove('show');
+  showSuccessMessage('تم تسجيل الخروج بنجاح!');
+
+  setTimeout(() => {
+    window.location.href = 'HomePage.html';
+  }, 1500);
+});
+
+cancelLogoutBtn.addEventListener('click', function() {
+  logoutModal.classList.remove('show');
+});
+
+imageUploadBtn.addEventListener('click', () => {
+  imageUploadInput.click();
+});
+
+imageUploadInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (!validTypes.includes(file.type)) {
+      showErrorMessage('نوع الملف غير مدعوم. يرجى اختيار صورة بصيغة JPEG أو PNG.');
+      return;
+    }
+    
+    const maxSize = 2 * 1024 * 1024; 
+    if (file.size > maxSize) {
+      showErrorMessage('حجم الملف كبير جداً. يرجى اختيار صورة بحجم أقل من 2 ميجابايت.');
+      return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      profileImage.src = event.target.result;
+      showSuccessMessage('تم تحديث صورة الملف الشخصي بنجاح');
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+function convertToArabicNumbers(gregorianDate) {
+  const date = new Date(gregorianDate);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  
+  const arabicNumbers = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+  const formatWithArabic = (num) => {
+    return num.toString().replace(/\d/g, (d) => arabicNumbers[parseInt(d)]);
+  };
+  
+  return `${formatWithArabic(day)}-${formatWithArabic(month.toString().padStart(2, '0'))}-${formatWithArabic(year)}`;
+}
+
+function updateNotificationDisplay() {
+  notificationValues.innerHTML = adminData.notifications
+    .map(notif => `<span class="notification-item">${notif}</span>`)
+    .join('');
+}
+
+function showSuccessMessage(message) {
+  successMessage.textContent = message;
+  successMessage.style.display = 'block';
+  
+  setTimeout(() => {
+    successMessage.style.display = 'none';
+  }, 5000);
+}
+
+function showErrorMessage(message) {
+  errorMessage.textContent = message;
+  errorMessage.style.display = 'block';
+  
+  setTimeout(() => {
+    errorMessage.style.display = 'none';
+  }, 5000);
+}
+
+function hideMessages() {
+  successMessage.style.display = 'none';
+  errorMessage.style.display = 'none';
+}
+
+editForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const name = document.getElementById('editName').value;
+  const email = document.getElementById('editEmail').value;
+  const birthdate = document.getElementById('editBirthdate').value;
+  const bio = document.getElementById('editBio').value;
+  
+  adminData.name = name;
+  adminData.email = email;
+  adminData.bio = bio;
+  adminData.birthdate = convertToArabicNumbers(birthdate);
+  
+  const selectedNotifications = [];
+  const notificationCheckboxes = document.querySelectorAll('input[name="notification"]:checked');
+  notificationCheckboxes.forEach(checkbox => {
+    selectedNotifications.push(checkbox.value);
+  });
+  
+  adminData.notifications = selectedNotifications;
+  
+  adminName.textContent = adminData.name;
+  adminBio.textContent = adminData.bio;
+  emailValue.textContent = adminData.email;
+  birthdateValue.textContent = adminData.birthdate;
+  
+  updateNotificationDisplay();
+  
+  profileInfo.style.display = 'block';
+  editForm.classList.remove('active');
+  editProfileBtn.style.display = 'block';
+  
+  imageUploadBtn.classList.remove('active');
+  
+  showSuccessMessage('تم تحديث الملف الشخصي بنجاح!');
+});
+
+document.addEventListener('click', (e) => {
+  const clickedInsideNav = navMenu.contains(e.target) || e.target === hamburger;
+  if (navMenu.classList.contains('show') && !clickedInsideNav) {
+    navMenu.classList.remove('show');
+  }
+});
+
+logoutModal.addEventListener('click', (e) => {
+  const content = logoutModal.querySelector('.logout-content');
+  if (!content.contains(e.target)) {
+    logoutModal.classList.remove('show');
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (navMenu.classList.contains('show')) {
+      navMenu.classList.remove('show');
+    }
+    if (logoutModal.classList.contains('show')) {
+      logoutModal.classList.remove('show');
+    }
+  }
+});
+
+updateNotificationDisplay();
+</script>
+
+</body>
+</html>

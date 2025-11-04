@@ -1,0 +1,1505 @@
+<!DOCTYPE html> 
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مِـداد | Medad</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    @font-face {
+        font-family: 'Doran';
+        src: url('font/Doran-Regular.woff2') format('woff2'),
+             url('font/Doran-Regular.woff') format('woff'),
+             url('font/Doran-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Doran';
+        src: url('font/Doran-Bold.woff2') format('woff2'),
+             url('font/Doran-Bold.woff') format('woff'),
+             url('font/Doran-Bold.ttf') format('truetype');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    :root {
+        --accent: #E8D1A7;
+        --burgundy: #7B1E3A;
+        --burgundy-light: rgba(123, 30, 58, 0.08);
+        --text-dark: #2D2D2D;
+        --text-light: #555555;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --shadow-hover: 0 6px 18px rgba(123, 30, 58, 0.15);
+        --error: #7B1E3A;
+        --error-light: rgba(123, 30, 58, 0.1);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Almarai', 'Arial', sans-serif;
+    }
+
+    body {
+        background: #f8f8f8;
+        color: #333;
+        line-height: 1.6;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .background-art {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: linear-gradient(rgba(248, 248, 248, 0.9), rgba(248, 248, 248, 0.9)), 
+                    url('image/BACKGROUND.png') center/cover no-repeat;
+        opacity: 0.3;
+    }
+
+    /*  الهيدر  */
+    .main-header{
+      background: transparent;
+      padding: 12px 0;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .header-shell{
+      width: min(1100px, calc(100% - 24px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 100;
+    }
+
+    .hamburger {
+        font-size: 28px;
+        cursor: pointer;
+        color: var(--burgundy);
+        background: none;
+        border: none;
+        justify-self: start;
+        padding: 8px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+    }
+
+    .hamburger:hover {
+        background: var(--burgundy-light);
+        transform: scale(1.1);
+    }
+
+    .header-center {
+      justify-self: center;
+    }
+
+    .brand-image {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      background: transparent;
+      display: inline-block;
+    }
+
+    @media (max-width: 600px){
+      .header-shell{ 
+        grid-template-columns: auto 1fr auto; 
+        padding: 6px 10px;
+      }
+      .brand-image {
+        width: 35px;
+        height: 35px;
+      }
+      .hamburger {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+      }
+    }
+
+    .nav-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .nav-menu.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .menu-content {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(123, 30, 58, 0.1);
+      min-width: 300px;
+    }
+
+    .menu-content a {
+      display: block;
+      font-size: 22px;
+      color: var(--burgundy);
+      text-decoration: none;
+      margin: 20px 0;
+      font-weight: 600;
+      font-family: 'Doran', 'Arial', sans-serif;
+      transition: all 0.3s ease;
+      padding: 12px 25px;
+      border-radius: 12px;
+    }
+
+    .menu-content a:hover {
+      color: white;
+      background: var(--burgundy);
+      transform: translateX(-10px);
+      box-shadow: 0 5px 15px rgba(123, 30, 58, 0.3);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      font-size: 32px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      color: var(--burgundy);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 10px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-btn:hover {
+      background: var(--burgundy);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* المحتوى الرئيسي  */
+    .admin-main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex: 1;
+      width: 100%;
+    }
+
+    .admin-title {
+      font-family: 'Doran', 'Arial', sans-serif;
+      font-size: 2.2rem;
+      color: var(--burgundy);
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .admin-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 25%;
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--burgundy), transparent);
+    }
+
+    .admin-action-buttons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .admin-action-buttons button {
+      background: linear-gradient(135deg, var(--burgundy), #5a152c);
+      color: white;
+      border: none;
+      padding: 14px 25px;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Doran', 'Arial', sans-serif;
+      box-shadow: var(--shadow);
+      min-width: 180px;
+    }
+
+    .admin-action-buttons button:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .admin-event-form {
+      display: none;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(123, 30, 58, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .admin-event-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--burgundy), var(--accent), var(--burgundy));
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: -200% 0; }
+      50% { background-position: 200% 0; }
+    }
+
+    .form-title {
+      font-family: 'Doran', 'Arial', sans-serif;
+      font-size: 1.5rem;
+      color: var(--burgundy);
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      text-align: right;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    .required-field::after {
+      content: "*";
+      color: var(--burgundy);
+      margin-right: 5px;
+      font-weight: bold;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid rgba(123, 30, 58, 0.1);
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+      font-family: 'Almarai', 'Arial', sans-serif;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--burgundy);
+      box-shadow: 0 0 0 4px rgba(123, 30, 58, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .date-time-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .image-upload-container {
+      border: 2px dashed rgba(123, 30, 58, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .image-upload-container:hover {
+      border-color: var(--burgundy);
+      background: rgba(123, 30, 58, 0.05);
+    }
+
+    .image-upload-icon {
+      font-size: 2.5rem;
+      color: var(--burgundy);
+      margin-bottom: 10px;
+    }
+
+    .image-upload-text {
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+
+    .image-preview {
+      max-width: 100%;
+      max-height: 200px;
+      margin-top: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .save-btn {
+      background: linear-gradient(135deg, var(--burgundy), #5a152c);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 35px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-family: 'Doran', 'Arial', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+    }
+
+    .save-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+    }
+
+    .cancel-btn {
+      background: transparent;
+      color: var(--text-light);
+      border: 2px solid var(--text-light);
+      border-radius: 14px;
+      padding: 14px 35px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-family: 'Doran', 'Arial', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .cancel-btn:hover {
+      background: var(--text-light);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .delete-btn {
+      background: linear-gradient(135deg, var(--burgundy), #5a152c);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 35px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-family: 'Doran', 'Arial', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+    }
+
+    .delete-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+      background: linear-gradient(135deg, #5a152c, var(--burgundy));
+    }
+
+    .current-events-section {
+      width: 100%;
+      margin-top: 60px;
+    }
+
+    .section-title {
+      font-family: 'Doran', 'Arial', sans-serif;
+      font-size: 1.8rem;
+      color: var(--burgundy);
+      margin-bottom: 25px;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      right: 25%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--burgundy), transparent);
+    }
+
+    .events-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .events-container {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .events-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .event-card {
+      background-color: #fff;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 400px;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .event-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-card h3 {
+      font-family: 'Doran', 'Arial', sans-serif;
+      color: var(--burgundy);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      line-height: 1.3;
+    }
+
+    .event-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-light);
+      margin-bottom: 15px;
+      flex: 1;
+    }
+
+    .event-type {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+    }
+
+    .event-type span {
+      background-color: var(--burgundy);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-family: 'Almarai', 'Arial', sans-serif;
+    }
+
+    .event-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      margin-top: 10px;
+      padding: 0 12px;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .details-btn {
+      background-color: #f9f9f9;
+      border: 1px solid rgba(123, 30, 58, 0.1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      color: var(--burgundy);
+      margin-top: auto;
+      transition: all 0.3s ease;
+      font-family: 'Almarai', 'Arial', sans-serif;
+    }
+
+    .details-btn:hover {
+      background-color: var(--burgundy-light);
+    }
+
+    .delete-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .delete-modal.show {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .delete-content {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 40px 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(123, 30, 58, 0.2);
+        min-width: 350px;
+        max-width: 90%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .delete-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 2px solid transparent;
+        border-radius: 20px;
+        background: linear-gradient(45deg, var(--burgundy), transparent, var(--burgundy), transparent, var(--burgundy));
+        background-size: 400% 400%;
+        animation: borderAnimation 3s linear infinite;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @keyframes borderAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .delete-content::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
+        background: white;
+        border-radius: 18px;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .delete-content h3 {
+        color: var(--burgundy);
+        margin-bottom: 20px;
+        font-family: 'Doran', 'Arial', sans-serif;
+        font-size: 1.5rem;
+        font-weight: bold;
+        position: relative;
+        z-index: 2;
+    }
+
+    .delete-content p {
+        color: var(--text-light);
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        position: relative;
+        z-index: 2;
+    }
+
+    .delete-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
+    }
+
+    .confirm-delete-btn {
+        background: linear-gradient(135deg, var(--burgundy), #5a152c);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-family: 'Doran', 'Arial', sans-serif;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+        min-width: 120px;
+    }
+
+    .confirm-delete-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+    }
+
+    .cancel-delete-btn {
+        background: transparent;
+        color: var(--text-light);
+        border: 2px solid var(--text-light);
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-family: 'Doran', 'Arial', sans-serif;
+        transition: all 0.3s ease;
+        min-width: 120px;
+    }
+
+    .cancel-delete-btn:hover {
+        background: var(--text-light);
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    .logout-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        z-index: 2100;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logout-modal.show {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .logout-content {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 40px 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(123, 30, 58, 0.2);
+        min-width: 350px;
+        max-width: 90%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .logout-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 2px solid transparent;
+        border-radius: 20px;
+        background: linear-gradient(45deg, var(--burgundy), transparent, var(--burgundy), transparent, var(--burgundy));
+        background-size: 400% 400%;
+        animation: borderAnimation 3s linear infinite;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .logout-content::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
+        background: white;
+        border-radius: 18px;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .logout-content h3 {
+        color: var(--burgundy);
+        margin-bottom: 20px;
+        font-family: 'Doran', 'Arial', sans-serif;
+        font-size: 1.5rem;
+        font-weight: bold;
+        position: relative;
+        z-index: 2;
+    }
+
+    .logout-content p {
+        color: var(--text-light);
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        position: relative;
+        z-index: 2;
+    }
+
+    .logout-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
+    }
+
+    .confirm-logout-btn {
+        background: linear-gradient(135deg, var(--burgundy), #5a152c);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-family: 'Doran', 'Arial', sans-serif;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+        min-width: 120px;
+    }
+
+    .confirm-logout-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+    }
+
+    .cancel-logout-btn {
+        background: transparent;
+        color: var(--text-light);
+        border: 2px solid var(--text-light);
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-family: 'Doran', 'Arial', sans-serif;
+        transition: all 0.3s ease;
+        min-width: 120px;
+    }
+
+    .cancel-logout-btn:hover {
+        background: var(--text-light);
+        color: white;
+        transform: translateY(-3px);
+    }
+
+
+
+    /*  الفوتر  */
+    .main-footer {
+      background-color: #ebe2db;
+      width: 100%;
+      padding: 30px 16px 16px;
+      margin-top: auto;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-left h3 {
+      color: var(--burgundy);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .footer-icons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    
+    .icon-box {
+      width: 40px; 
+      height: 40px;
+      
+      color: var(--burgundy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .icon-box:hover {
+      background-color: var(--burgundy);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+    }
+
+    .footer-center img.footer-logo {
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+    
+    .footer-center p {
+      font-weight: 600;
+      color: var(--burgundy);
+      font-size: 1rem;
+    }
+
+    .footer-right {
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      color: var(--burgundy);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+.footer-right svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--burgundy);
+        }
+    @media (max-width: 768px) {
+      .admin-action-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .admin-action-buttons button {
+        width: 100%;
+      }
+      
+      .date-time-group {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+      
+      .save-btn, .cancel-btn, .delete-btn {
+        width: 100%;
+      }
+      
+      .menu-content {
+        min-width: 280px;
+        padding: 30px 20px;
+      }
+      
+      .menu-content a {
+        font-size: 20px;
+        padding: 10px 20px;
+      }
+      
+      .delete-content {
+        min-width: 280px;
+        padding: 30px 20px;
+      }
+      
+      .delete-actions {
+        flex-direction: column;
+      }
+      
+      .confirm-delete-btn, .cancel-delete-btn {
+        width: 100%;
+      }
+
+      .logout-content {
+        min-width: 280px;
+        padding: 30px 20px;
+      }
+
+      .logout-actions {
+        flex-direction: column;
+      }
+
+      .confirm-logout-btn,
+      .cancel-logout-btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .admin-title {
+        font-size: 1.8rem;
+      }
+      
+      .admin-event-form {
+        padding: 20px 15px;
+      }
+      
+      .footer-container {
+        flex-direction: column;
+        gap: 25px;
+      }
+      
+      .close-btn {
+        top: 20px;
+        left: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="background-art"></div>
+
+  <!--  الهيدر  -->
+  <header class="main-header">
+    <div class="header-shell">   
+      <div class="header-start">
+        <img class="brand-image" src="image/LOGO SW.png" alt="Medad Logo">
+      </div>
+      
+      <div class="header-center"></div>
+      
+      <button class="hamburger" id="hamburger">☰</button>
+    </div>
+  </header>
+
+  <nav class="nav-menu" id="navMenu">
+    <button class="close-btn" id="closeBtn">&times;</button>
+    <div class="menu-content">
+      <a href="adhome.html">الملف الشخصي</a>
+      <a href="admin.html">إدارة الفعاليات والاندية</a>
+      <a href="#" id="logoutLink">تسجيل خروج</a>
+    </div>
+  </nav>
+
+  <!--  المحتوى الرئيسي  -->
+  <main class="admin-main">
+    <h1 class="admin-title">إدارة الفعاليات والأندية</h1>
+
+    <div class="admin-action-buttons">
+      <button onclick="showForm('add')">إضافة فعالية/نادي</button>
+      <button onclick="showForm('edit')">تعديل فعالية/نادي</button>
+      <button onclick="showForm('delete')">حذف فعالية/نادي</button>
+    </div>
+
+    <div class="admin-event-form" id="form-add">
+      <h2 class="form-title">إضافة فعالية/نادي جديد</h2>
+      
+      <div class="form-group">
+        <label for="add-name" class="form-label required-field">اسم الفعالية/النادي</label>
+        <input type="text" id="add-name" class="form-input" placeholder="أدخل اسم الفعالية أو النادي" required>
+      </div>
+
+      <div class="form-group">
+        <label for="add-description" class="form-label required-field">الوصف</label>
+        <textarea id="add-description" class="form-textarea" placeholder="أدخل وصف الفعالية أو النادي" rows="4" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="add-type" class="form-label required-field">النوع</label>
+        <select id="add-type" class="form-select" required>
+          <option value="">اختر النوع</option>
+          <option value="event">فعالية</option>
+          <option value="club">نادي</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label required-field">التاريخ والوقت</label>
+        <div class="date-time-group">
+          <input type="date" id="add-date" class="form-input" required>
+          <input type="time" id="add-time" class="form-input" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="add-location" class="form-label required-field">المكان</label>
+        <input type="text" id="add-location" class="form-input" placeholder="أدخل مكان الفعالية" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">صورة الفعالية/النادي</label>
+        <div class="image-upload-container" id="add-image-upload">
+          <div class="image-upload-icon">📷</div>
+          <div class="image-upload-text">انقر لرفع صورة</div>
+          <input type="file" id="add-image" accept="image/*" style="display: none;">
+          <img id="add-image-preview" class="image-preview" alt="معاينة الصورة">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="save-btn" onclick="addEvent()">إضافة</button>
+        <button type="button" class="cancel-btn" onclick="hideAllForms()">إلغاء</button>
+      </div>
+    </div>
+
+    <div class="admin-event-form" id="form-edit">
+      <h2 class="form-title">تعديل فعالية/نادي</h2>
+      
+      <div class="form-group">
+        <label for="edit-select" class="form-label required-field">اختر الفعالية/النادي</label>
+        <select id="edit-select" class="form-select" onchange="loadEventData()" required>
+          <option value="">اختر الفعالية/النادي</option>
+          <option value="1">فعالية الشعر العربي</option>
+          <option value="2">نادي القصة القصيرة</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-name" class="form-label required-field">اسم الفعالية/النادي</label>
+        <input type="text" id="edit-name" class="form-input" placeholder="أدخل الاسم الجديد" required>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-description" class="form-label required-field">الوصف</label>
+        <textarea id="edit-description" class="form-textarea" placeholder="أدخل الوصف الجديد" rows="4" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label required-field">التاريخ والوقت</label>
+        <div class="date-time-group">
+          <input type="date" id="edit-date" class="form-input" required>
+          <input type="time" id="edit-time" class="form-input" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-location" class="form-label required-field">المكان</label>
+        <input type="text" id="edit-location" class="form-input" placeholder="أدخل المكان الجديد" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">صورة الفعالية/النادي</label>
+        <div class="image-upload-container" id="edit-image-upload">
+          <div class="image-upload-icon">📷</div>
+          <div class="image-upload-text">انقر لتغيير الصورة</div>
+          <input type="file" id="edit-image" accept="image/*" style="display: none;">
+          <img id="edit-image-preview" class="image-preview" alt="معاينة الصورة">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="save-btn" onclick="updateEvent()">حفظ التغييرات</button>
+        <button type="button" class="cancel-btn" onclick="hideAllForms()">إلغاء</button>
+      </div>
+    </div>
+
+    <div class="admin-event-form" id="form-delete">
+      <h2 class="form-title">حذف فعالية/نادي</h2>
+      
+      <div class="form-group">
+        <label for="delete-select" class="form-label required-field">اختر الفعالية/النادي</label>
+        <select id="delete-select" class="form-select" required>
+          <option value="">اختر الفعالية/النادي</option>
+          <option value="1">فعالية الشعر العربي</option>
+          <option value="2">نادي القصة القصيرة</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="delete-btn" onclick="showDeleteModal()">حذف</button>
+        <button type="button" class="cancel-btn" onclick="hideAllForms()">إلغاء</button>
+      </div>
+    </div>
+
+    <section class="current-events-section">
+      <h2 class="section-title">الفعاليات والأندية الحالية</h2>
+      <div class="events-container">
+        <!-- فعالية الشعر العربي -->
+        <div class="event-card">
+          <div class="event-type">
+            <span>فعالية</span>
+          </div> 
+          <img src="image/event4.jpg" alt="فعالية الشعر العربي">
+          <div class="card-content">
+            <h3>فعالية الشعر العربي</h3>
+            <p>فعالية شعرية تجمع عشاق الشعر العربي من جميع أنحاء المملكة لمناقشة ومحاورة ثقافة الشعر السعودي.</p>
+            <button class="details-btn">التفاصيل ▼</button>
+            <div class="event-details">
+              <p><strong>الموقع:</strong> الرياض، مركز الملك فهد الثقافي</p>
+              <p><strong>الوقت:</strong> 10 نوفمبر 2025 - 7:00 مساءً</p>
+              <p>جلسة حوارية معدة للاحتفاء بالشعر السعودي وكُتابه.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- نادي القصة القصيرة -->
+        <div class="event-card">
+          <div class="event-type">
+            <span>نادي</span>
+          </div> 
+          <img src="image/event9.jpg" alt="نادي القصة القصيرة">
+          <div class="card-content">
+            <h3>نادي القصة القصيرة</h3>
+            <p>ملتقى لمحبي القصة القصيرة لتوفير تجربة تفاعلية مع أقرانهم ومناقشة الأعمال الأدبية المميزة.</p>
+            <button class="details-btn">التفاصيل ▼</button>
+            <div class="event-details">
+              <p><strong>الموقع:</strong> جدة، مكتبة الأدب السعودي</p>
+              <p><strong>الوقت:</strong> كل يوم ثلاثاء - 6:00 مساءً</p>
+              <p>ورش عملية لتطوير مهارات الكتابة والإبداع الأدبي.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="delete-modal" id="deleteModal">
+      <div class="delete-content">
+          <h3>تأكيد الحذف</h3>
+          <p>هل أنت متأكد أنك تريد حذف هذه الفعالية/النادي؟ </p>
+          <div class="delete-actions">
+              <button class="confirm-delete-btn" id="confirmDelete">تأكيد الحذف</button>
+              <button class="cancel-delete-btn" id="cancelDelete">إلغاء</button>
+          </div>
+      </div>
+  </div>
+
+  <div class="logout-modal" id="logoutModal">
+      <div class="logout-content">
+          <h3>تأكيد تسجيل الخروج</h3>
+          <p>هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟</p>
+          <div class="logout-actions">
+              <button class="confirm-logout-btn" id="confirmLogout">تأكيد</button>
+              <button class="cancel-logout-btn" id="cancelLogout">إلغاء</button>
+          </div>
+      </div>
+  </div>
+
+
+
+  <!--  الفوتر  -->
+  <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <h3>تواصل معنا</h3>
+                <div class="footer-icons">
+                    <a href="https://x.com/MedadKsu" class="icon-box" title="X">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2H21L14.126 10.088 22 22h-5.905l-4.67-6.726L6.08 22H3l7.31-8.433L2 2h6.08l4.132 5.897L18.244 2zM7.118 4l9.764 13.997h1.999L9.12 4H7.118z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:MedadKsu@gmail.com" class="icon-box" title="Email">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4 4h16v16H4V4zm8 8l8-5H4l8 5zm0 2l-8-5v10h16V9l-8 5z"/>
+                        </svg>
+                    </a>
+                    
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <img src="image/LOGO SW.png" alt="شعار مداد" class="footer-logo">
+                <p>© جميع الحقوق محفوظة 2025</p>
+            </div>
+
+            <div class="footer-right">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13401 2 5 5.13401 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13401 15.866 2 12 2Z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                </svg>
+                <span>المملكة العربية السعودية</span>
+            </div>
+        </div>
+    </footer>
+
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  const closeBtn = document.getElementById('closeBtn');
+  const logoutLink = document.getElementById('logoutLink');
+  const deleteModal = document.getElementById('deleteModal');
+  const confirmDeleteBtn = document.getElementById('confirmDelete');
+  const cancelDeleteBtn = document.getElementById('cancelDelete');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.add('show');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    navMenu.classList.remove('show');
+  });
+
+  logoutLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (confirm('هل أنت متأكد أنك تريد تسجيل الخروج؟')) {
+      window.location.href = 'HomePage.html';
+    }
+  });
+
+  document.addEventListener('click', function(event) {
+    if (
+      navMenu.classList.contains('show') && 
+      !navMenu.contains(event.target) && 
+      event.target !== hamburger
+    ) {
+      navMenu.classList.remove('show');
+    }
+  });
+
+  function showForm(action) {
+    const forms = ['form-add', 'form-edit', 'form-delete'];
+    forms.forEach(id => document.getElementById(id).style.display = 'none');
+    document.getElementById('form-' + action).style.display = 'block';
+  }
+
+  function hideAllForms() {
+    const forms = ['form-add', 'form-edit', 'form-delete'];
+    forms.forEach(id => document.getElementById(id).style.display = 'none');
+  }
+
+  function showDeleteModal() {
+    const selectedId = document.getElementById('delete-select').value;
+    if (!selectedId) {
+      alert('الرجاء اختيار فعالية/نادي');
+      return;
+    }
+    deleteModal.classList.add('show');
+  }
+
+  confirmDeleteBtn.addEventListener('click', function() {
+    const deleteSelect = document.getElementById('delete-select');
+    const editSelect = document.getElementById('edit-select');
+
+    const idToDelete = deleteSelect.value;
+
+    if (!idToDelete) {
+      alert('الرجاء اختيار فعالية/نادي');
+      deleteModal.classList.remove('show');
+      return;
+    }
+
+    for (let i = 0; i < deleteSelect.options.length; i++) {
+      if (deleteSelect.options[i].value === idToDelete) {
+        deleteSelect.remove(i);
+        break;
+      }
+    }
+
+    if (editSelect) {
+      for (let i = 0; i < editSelect.options.length; i++) {
+        if (editSelect.options[i].value === idToDelete) {
+          editSelect.remove(i);
+          break;
+        }
+      }
+    }
+
+    deleteModal.classList.remove('show');
+    deleteSelect.value = '';
+    hideAllForms();
+    alert('تم حذف الفعالية/النادي بنجاح!');
+
+  });
+
+  cancelDeleteBtn.addEventListener('click', function() {
+    deleteModal.classList.remove('show');
+  });
+
+  deleteModal.addEventListener('click', (e) => {
+    const content = deleteModal.querySelector('.delete-content');
+    if (!content.contains(e.target)) {
+      deleteModal.classList.remove('show');
+    }
+  });
+
+  document.getElementById('add-image-upload').addEventListener('click', function() {
+    document.getElementById('add-image').click();
+  });
+
+  document.getElementById('add-image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById('add-image-preview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+
+  document.getElementById('edit-image-upload').addEventListener('click', function() {
+    document.getElementById('edit-image').click();
+  });
+
+  document.getElementById('edit-image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById('edit-image-preview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+
+  function loadEventData() {
+    const selectedId = document.getElementById('edit-select').value;
+
+    if (selectedId === '1') {
+      document.getElementById('edit-name').value = 'فعالية الشعر العربي';
+      document.getElementById('edit-description').value = 'فعالية شعرية تجمع عشاق الشعر العربي';
+      document.getElementById('edit-date').value = '2025-03-15';
+      document.getElementById('edit-time').value = '19:00';
+      document.getElementById('edit-location').value = 'المكتبة المركزية';
+    } else if (selectedId === '2') {
+      document.getElementById('edit-name').value = 'نادي القصة القصيرة';
+      document.getElementById('edit-description').value = 'نادي يهتم بمحبي القصة القصيرة وكتابتها';
+      document.getElementById('edit-date').value = '2025-04-10';
+      document.getElementById('edit-time').value = '18:30';
+      document.getElementById('edit-location').value = 'قاعة الأنشطة الثقافية';
+    } else {
+      document.getElementById('edit-name').value = '';
+      document.getElementById('edit-description').value = '';
+      document.getElementById('edit-date').value = '';
+      document.getElementById('edit-time').value = '';
+      document.getElementById('edit-location').value = '';
+    }
+  }
+
+  function addEvent() {
+    const name = document.getElementById('add-name').value;
+    const description = document.getElementById('add-description').value;
+    const type = document.getElementById('add-type').value;
+    const date = document.getElementById('add-date').value;
+    const time = document.getElementById('add-time').value;
+    const location = document.getElementById('add-location').value;
+
+    if (!name || !description || !type || !date || !time || !location) {
+      alert('الرجاء ملء جميع الحقول المطلوبة');
+      return;
+    }
+
+    alert('تم إضافة الفعالية/النادي بنجاح!');
+    hideAllForms();
+
+  }
+
+  function updateEvent() {
+    const selectedId = document.getElementById('edit-select').value;
+    const name = document.getElementById('edit-name').value;
+    const description = document.getElementById('edit-description').value;
+    const date = document.getElementById('edit-date').value;
+    const time = document.getElementById('edit-time').value;
+    const location = document.getElementById('edit-location').value;
+
+    if (!selectedId) {
+      alert('الرجاء اختيار فعالية/نادي');
+      return;
+    }
+
+    if (!name || !description || !date || !time || !location) {
+      alert('الرجاء ملء جميع الحقول المطلوبة');
+      return;
+    }
+
+    alert('تم تحديث الفعالية/النادي بنجاح!');
+    hideAllForms();
+
+  }
+</script>
+
+</body>
+</html>

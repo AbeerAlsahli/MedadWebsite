@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مِـداد | Medad</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Doran';
+            src: url('font/Doran-Regular.woff2') format('woff2'),
+                 url('font/Doran-Regular.woff') format('woff'),
+                 url('font/Doran-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Doran';
+            src: url('font/Doran-Bold.woff2') format('woff2'),
+                 url('font/Doran-Bold.woff') format('woff'),
+                 url('font/Doran-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --accent: #E8D1A7;
+            --burgundy: #7B1E3A;
+            --burgundy-light: rgba(123, 30, 58, 0.08);
+            --burgundy-shimmer: rgba(123, 30, 58, 0.1);
+            --text-dark: #2D2D2D;
+            --text-light: #555555;
+            --background: #FFFFFF;
+            --off-white: #F9F9F9;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 6px 18px rgba(123, 30, 58, 0.15);
+            --gold: #FFD700;
+            --gold-light: rgba(255, 215, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Almarai', 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+
+        .main-header {
+            background: transparent;
+            padding: 12px 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid transparent;
+        }
+
+        .header-shell {
+            width: min(1100px, calc(100% - 24px));
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            border-radius: 999px;
+            padding: 8px 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-start {
+            justify-self: start;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-center {
+            justify-self: center;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-image {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            background: transparent;
+            display: inline-block;
+        }
+
+        .hamburger {
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--burgundy);
+            background: none;
+            border: none;
+            justify-self: end;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hamburger:hover {
+            background: var(--burgundy-light);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 600px) {
+            .header-shell {
+                grid-template-columns: auto 1fr auto;
+                padding: 6px 10px;
+            }
+
+            .brand-image {
+                width: 35px;
+                height: 35px;
+            }
+
+            .hamburger {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+        }
+
+
+        .nav-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            z-index: 1500;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .nav-menu.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .menu-content {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(123, 30, 58, 0.1);
+            min-width: 300px;
+        }
+
+        .menu-content a {
+            display: block;
+            font-size: 22px;
+            color: var(--burgundy);
+            text-decoration: none;
+            margin: 20px 0;
+            font-weight: 600;
+            font-family: 'Doran', 'Arial', sans-serif;
+            transition: all 0.3s ease;
+            padding: 12px 25px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-content a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--burgundy-light), transparent);
+            transition: right 0.5s ease;
+        }
+
+        .menu-content a:hover::before {
+            right: 100%;
+        }
+
+        .menu-content a:hover {
+            color: #fff;
+            background: var(--burgundy);
+            transform: translateX(-10px);
+            box-shadow: 0 5px 15px rgba(123, 30, 58, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            font-size: 32px;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            color: var(--burgundy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-btn:hover {
+            background: var(--burgundy);
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 6px 18px rgba(123, 30, 58, 0.2);
+        }
+
+        /*  المحتوى الرئيسي  */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .page-title {
+            font-family: 'Doran', 'Arial', sans-serif;
+            font-size: 2.5rem;
+            color: var(--burgundy);
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 3px;
+            background: var(--burgundy);
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #ddd;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            color: #666;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .tab.active {
+            color: var(--burgundy);
+            background: var(--burgundy-light);
+            box-shadow: 0 2px 8px rgba(123, 30, 58, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--gold);
+        }
+
+        .card-header {
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: var(--burgundy);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .card h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            flex: 1;
+            font-size: 1.3rem;
+        }
+
+        .bookmark-btn {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gold);
+            transition: all 0.3s;
+            padding: 0.2rem;
+        }
+
+        .bookmark-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .details-btn {
+            background: none;
+            border: none;
+            color: var(--burgundy);
+            cursor: pointer;
+            margin-top: 0.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .details-btn:hover {
+            color: #5a152c;
+        }
+
+        .details-content {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+
+        .details-content.active {
+            display: block;
+        }
+
+        .details-content p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .details-content strong {
+            color: var(--text-dark);
+        }
+
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .reserve-btn {
+            background-color: var(--burgundy);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .reserve-btn:hover {
+            background-color: #5a152c;
+        }
+
+        .remove-btn {
+            background-color: #f8f8f8;
+            color: var(--text-light);
+            border: 1px solid #ddd;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-btn:hover {
+            background-color: #ffebee;
+            color: #c62828;
+            border-color: #ffcdd2;
+        }
+
+        .remove-icon {
+            width: 18px;
+            height: 18px;
+            margin-left: 5px;
+        }
+
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            background: white;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .empty-state h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .empty-state p {
+            color: var(--text-light);
+            max-width: 400px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            z-index: 2100;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(123, 30, 58, 0.2);
+            min-width: 350px;
+            max-width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            background: linear-gradient(
+                45deg,
+                var(--burgundy),
+                transparent,
+                var(--burgundy),
+                transparent,
+                var(--burgundy)
+            );
+            background-size: 400% 400%;
+            animation: borderAnimation 3s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .modal-box::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: white;
+            border-radius: 18px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes borderAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .modal-box h3 {
+            color: var(--burgundy);
+            margin-bottom: 20px;
+            font-family: 'Doran', 'Arial', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+
+        .modal-box p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--burgundy), #5a152c);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: 'Doran', 'Arial', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+            min-width: 120px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: 'Doran', 'Arial', sans-serif;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .btn-ghost:hover {
+            background: var(--text-light);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+
+
+        /*  الفوتر  */
+
+        .main-footer {
+            background-color: #ebe2db;
+            width: 100%;
+            padding: 30px 16px 16px;
+            color:var(--burgundy);
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-left h3 {
+            color: var(--burgundy);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .footer-icons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .icon-box {
+            width: 35px;
+            height: 35px;
+            
+            color: var(--burgundy);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .icon-box:hover {
+            background-color: #E8D1A7;
+            color: #743014;
+        }
+
+        .footer-center img.footer-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 6px;
+        }
+
+        .footer-center p {
+            font-weight: 600;
+            color: var(--burgundy);
+            font-size: 0.9rem;
+        }
+
+        .footer-right {
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+            color: var(--burgundy);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .footer-right svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--burgundy);
+        }
+
+
+        @media (max-width: 700px) {
+            .footer-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-icons {
+                gap: 6px;
+            }
+
+            .icon-box {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .tab {
+                padding: 0.6rem 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .remove-btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .modal-box {
+                min-width: 280px;
+                padding: 30px 20px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-ghost {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .card-content {
+                padding: 1rem;
+            }
+
+            .empty-state {
+                padding: 2rem 1rem;
+            }
+
+            .empty-state i {
+                font-size: 3rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .card,
+            .reserve-btn,
+            .bookmark-btn,
+            .hamburger {
+                transition: none;
+            }
+
+            .card:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--  الهيدر  -->
+    <header class="main-header">
+        <div class="header-shell">
+            <div class="header-start">
+                <img class="brand-image" src="image/LOGO SW.png" alt="Medad Logo">
+            </div>
+
+            <div class="header-center">
+            </div>
+
+            <button class="hamburger" id="hamburger">
+                ☰
+            </button>
+        </div>
+    </header>
+
+    <nav class="nav-menu" id="navMenu">
+        <button class="close-btn" id="closeBtn">
+            &times;
+        </button>
+
+        <div class="menu-content">
+            <a href="homep.html">الملف الشخصي</a>
+            <a href="events.html">صفحة الفعاليات والأندية</a>
+            <a href="myevents.html">حجوزاتي</a>
+            <a href="myclubs.html">أنديتي</a>
+            <a href="favs.html">تفضيلاتي</a>
+            <a id="logoutLink">تسجيل خروج</a>
+        </div>
+    </nav>
+
+    <!--  المحتوى الرئيسي  -->
+    <div class="container">
+        <h1 class="page-title">
+            مفضلاتي
+        </h1>
+
+        <p class="page-subtitle">
+            الأندية والفعاليات التي أضفتها إلى قائمة مفضلاتك
+        </p>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="all">
+                جميع المفضلات
+            </button>
+
+            <button class="tab" data-tab="clubs">
+                الأندية
+            </button>
+
+            <button class="tab" data-tab="events">
+                الفعاليات
+            </button>
+        </div>
+
+        <!-- جميع المفضلات -->
+        <div class="tab-content active" id="all">
+            <div class="cards-container" id="all-favorites">
+                <!-- نادي -->
+                <div class="card" data-type="club">
+                    <div class="card-header">
+                        <img src="image/event2.jpg" alt="نادي أدباء المملكة">
+                        <div class="card-badge">
+                            نادي
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="title-row">
+                            <h3>
+                                نادي أدباء المملكة
+                            </h3>
+
+                            <button class="bookmark-btn active">
+                                ★
+                            </button>
+                        </div>
+
+                        <p>
+                            ملتقى للأدباء من جميع نواحي المملكة لتوفير تجربة تفاعلية مع أقرانهم.
+                        </p>
+
+                        <button class="details-btn">
+                            التفاصيل ▼
+                        </button>
+
+                        <div class="details-content">
+                            <p>
+                                <strong>الموقع:</strong> الرياض، مركز الملك فهد الثقافي
+                            </p>
+
+                            <p>
+                                <strong>الوقت:</strong> كل يوم ثلاثاء
+                            </p>
+
+                            <p>
+                                <strong>النشاط:</strong> جلسات حوارية، أمسيات شعرية، ورش عمل
+                            </p>
+
+                            <p>
+                                جلسة حوارية معدة للاحتفاء بالشعر السعودي وكُتابه.
+                            </p>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="reserve-btn">
+                                انضم الآن
+                            </button>
+
+                            <button class="remove-btn" data-item-id="club-1">
+                                إزالة
+
+                                <svg class="remove-icon"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2">
+                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- فعالية -->
+                <div class="card" data-type="event">
+                    <div class="card-header">
+                        <img src="image/event4.jpg" alt="معرض الأدب السعودي">
+                        <div class="card-badge">
+                            فعالية
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="title-row">
+                            <h3>
+                                معرض الأدب السعودي
+                            </h3>
+
+                            <button class="bookmark-btn active">
+                                ★
+                            </button>
+                        </div>
+
+                        <p>
+                            معرض يسلط الضوء على المختصين بالأدب السعودي وأبرز أعمالهم في مجالاته.
+                        </p>
+
+                        <button class="details-btn">
+                            التفاصيل ▼
+                        </button>
+
+                        <div class="details-content">
+                            <p>
+                                <strong>الموقع:</strong> الرياض، قاعة المعارض الكبرى
+                            </p>
+
+                            <p>
+                                <strong>الوقت:</strong> 15 نوفمبر 2025
+                            </p>
+
+                            <p>
+                                <strong>التاريخ:</strong> السبت 15 نوفمبر 2025، 4:00 مساءً
+                            </p>
+
+                            <p>
+                                فرصة لاكتشاف الأعمال الأدبية النادرة والالتقاء بالمؤلفين الشباب.
+                            </p>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="reserve-btn">
+                                احجز الآن
+                            </button>
+
+                            <button class="remove-btn" data-item-id="event-1">
+                                إزالة
+
+                                <svg class="remove-icon"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2">
+                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نادي آخر -->
+                <div class="card" data-type="club">
+                    <div class="card-header">
+                        <img src="image/event8.jpg" alt="نادي نبض الحرف">
+                        <div class="card-badge">
+                            نادي
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="title-row">
+                            <h3>
+                                نادي نبض الحرف
+                            </h3>
+
+                            <button class="bookmark-btn active">
+                                ★
+                            </button>
+                        </div>
+
+                        <p>
+                            مجمع أدبي يوفر فرصة التعرف على أصول الخط العربي ودمجه في الوقت الحاضر.
+                        </p>
+
+                        <button class="details-btn">
+                            التفاصيل ▼
+                        </button>
+
+                        <div class="details-content">
+                            <p>
+                                <strong>الموقع:</strong> الرياض، مركز الملك فهد الثقافي
+                            </p>
+
+                            <p>
+                                <strong>الوقت:</strong> كل يوم أحد
+                            </p>
+
+                            <p>
+                                <strong>النشاط:</strong> ورش خط عربي، محاضرات عن تطور الخط
+                            </p>
+
+                            <p>
+                                محاضرة شيقة لفهم تطور الشعر الجاهلي وتأثيره على الأدب السعودي.
+                            </p>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="reserve-btn">
+                                انضم الآن
+                            </button>
+
+                            <button class="remove-btn" data-item-id="club-2">
+                                إزالة
+
+                                <svg class="remove-icon"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2">
+                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty-state" id="empty-all" style="display: none;">
+                <i>★</i>
+                <h3>
+                    لا توجد مفضلات حالياً
+                </h3>
+                <p>
+                    يمكنك إضافة الأندية والفعاليات إلى المفضلة بالنقر على النجمة في أي نادي أو فعالية
+                </p>
+            </div>
+        </div>
+
+        <!-- الأندية -->
+        <div class="tab-content" id="clubs">
+            <div class="cards-container" id="club-favorites">
+                <div class="card" data-type="club">
+                    <div class="card-header">
+                        <img src="image/event8.jpg" alt="نادي نبض الحرف">
+                        <div class="card-badge">
+                            نادي
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="title-row">
+                            <h3>
+                                نادي نبض الحرف
+                            </h3>
+
+                            <button class="bookmark-btn active">
+                                ★
+                            </button>
+                        </div>
+
+                        <p>
+                            مجمع أدبي يوفر فرصة التعرف على أصول الخط العربي ودمجه في الوقت الحاضر.
+                        </p>
+
+                        <button class="details-btn">
+                            التفاصيل ▼
+                        </button>
+
+                        <div class="details-content">
+                            <p>
+                                <strong>الموقع:</strong> الرياض، مركز الملك فهد الثقافي
+                            </p>
+
+                            <p>
+                                <strong>الوقت:</strong> كل يوم أحد
+                            </p>
+
+                            <p>
+                                <strong>النشاط:</strong> ورش خط عربي، محاضرات عن تطور الخط
+                            </p>
+
+                            <p>
+                                محاضرة شيقة لفهم تطور الشعر الجاهلي وتأثيره على الأدب السعودي.
+                            </p>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="reserve-btn">
+                                انضم الآن
+                            </button>
+
+                            <button class="remove-btn" data-item-id="club-2">
+                                إزالة
+
+                                <svg class="remove-icon"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2">
+                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty-state" id="empty-clubs" style="display: none;">
+                <i>★</i>
+                <h3>
+                    لا توجد أندية في المفضلة
+                </h3>
+                <p>
+                    يمكنك إضافة الأندية إلى المفضلة بالنقر على النجمة في أي نادي
+                </p>
+            </div>
+        </div>
+
+        <!-- الفعاليات -->
+        <div class="tab-content" id="events">
+            <div class="cards-container" id="event-favorites">
+                <div class="card" data-type="event">
+                    <div class="card-header">
+                        <img src="image/event4.jpg" alt="معرض الأدب السعودي">
+                        <div class="card-badge">
+                            فعالية
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="title-row">
+                            <h3>
+                                معرض الأدب السعودي
+                            </h3>
+
+                            <button class="bookmark-btn active">
+                                ★
+                            </button>
+                        </div>
+
+                        <p>
+                            معرض يسلط الضوء على المختصين بالأدب السعودي وأبرز أعمالهم في مجالاته.
+                        </p>
+
+                        <button class="details-btn">
+                            التفاصيل ▼
+                        </button>
+
+                        <div class="details-content">
+                            <p>
+                                <strong>الموقع:</strong> الرياض، قاعة المعارض الكبرى
+                            </p>
+
+                            <p>
+                                <strong>الوقت:</strong> 15 نوفمبر 2025
+                            </p>
+
+                            <p>
+                                <strong>التاريخ:</strong> السبت 15 نوفمبر 2025، 4:00 مساءً
+                            </p>
+
+                            <p>
+                                فرصة لاكتشاف الأعمال الأدبية النادرة والالتقاء بالمؤلفين الشباب.
+                            </p>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="reserve-btn">
+                                احجز الآن
+                            </button>
+
+                            <button class="remove-btn" data-item-id="event-1">
+                                إزالة
+
+                                <svg class="remove-icon"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2">
+                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty-state" id="empty-events" style="display: none;">
+                <i>★</i>
+                <h3>
+                    لا توجد فعاليات في المفضلة
+                </h3>
+                <p>
+                    يمكنك إضافة الفعاليات إلى المفضلة بالنقر على النجمة في أي فعالية
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="removeModal">
+        <div class="modal-box">
+            <h3>
+                تأكيد الإزالة
+            </h3>
+
+            <p id="removeText">
+                هل تريد إزالة هذا العنصر من المفضلة؟
+            </p>
+
+            <div class="modal-actions">
+                <button class="btn-primary" id="confirmRemove">
+                    تأكيد
+                </button>
+
+                <button class="btn-ghost" id="cancelRemove">
+                    إلغاء
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal-box">
+            <h3>
+                تأكيد تسجيل الخروج
+            </h3>
+
+            <p>
+                هل أنت متأكد من رغبتك في تسجيل الخروج من حسابك؟
+            </p>
+
+            <div class="modal-actions">
+                <button class="btn-primary" id="confirmLogout">
+                    تأكيد
+                </button>
+
+                <button class="btn-ghost" id="cancelLogout">
+                    إلغاء
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- الفوتر -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <h3>تواصل معنا</h3>
+                <div class="footer-icons">
+                    <a href="https://x.com/MedadKsu" class="icon-box" title="X">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2H21L14.126 10.088 22 22h-5.905l-4.67-6.726L6.08 22H3l7.31-8.433L2 2h6.08l4.132 5.897L18.244 2zM7.118 4l9.764 13.997h1.999L9.12 4H7.118z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:MedadKsu@gmail.com" class="icon-box" title="Email">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4 4h16v16H4V4zm8 8l8-5H4l8 5zm0 2l-8-5v10h16V9l-8 5z"/>
+                        </svg>
+                    </a>
+                    
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <img src="image/LOGO SW.png" alt="شعار مداد" class="footer-logo">
+                <p>© جميع الحقوق محفوظة 2025</p>
+            </div>
+
+            <div class="footer-right">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13401 2 5 5.13401 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13401 15.866 2 12 2Z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                </svg>
+                <span>المملكة العربية السعودية</span>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const closeBtn = document.getElementById('closeBtn');
+
+        const logoutLink = document.getElementById('logoutLink');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmLogout = document.getElementById('confirmLogout');
+        const cancelLogout = document.getElementById('cancelLogout');
+
+        hamburger.addEventListener('click', function () {
+            navMenu.classList.add('show');
+        });
+
+        closeBtn.addEventListener('click', function () {
+            navMenu.classList.remove('show');
+        });
+
+        navMenu.addEventListener('click', function (e) {
+            if (e.target === navMenu) {
+                navMenu.classList.remove('show');
+            }
+        });
+
+        logoutLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            navMenu.classList.remove('show');
+            logoutModal.classList.add('show');
+        });
+
+        confirmLogout.addEventListener('click', function () {
+            logoutModal.classList.remove('show');
+            alert('تم تسجيل الخروج بنجاح');
+            window.location.href = 'HomePage.html';
+        });
+
+        cancelLogout.addEventListener('click', function () {
+            logoutModal.classList.remove('show');
+        });
+
+        logoutModal.addEventListener('click', function (e) {
+            if (e.target === logoutModal) {
+                logoutModal.classList.remove('show');
+            }
+        });
+
+
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                tabs.forEach(function (t) {
+                    t.classList.remove('active');
+                });
+
+                tabContents.forEach(function (c) {
+                    c.classList.remove('active');
+                });
+
+                tab.classList.add('active');
+
+                const targetId = tab.dataset.tab;
+                const targetContent = document.getElementById(targetId);
+
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+
+                filterFavorites();
+            });
+        });
+
+
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('details-btn')) {
+                const button = e.target;
+                const detailsContent = button.nextElementSibling;
+
+                if (!detailsContent) {
+                    return;
+                }
+
+                detailsContent.classList.toggle('active');
+
+                if (detailsContent.classList.contains('active')) {
+                    button.textContent = 'التفاصيل ▲';
+                } else {
+                    button.textContent = 'التفاصيل ▼';
+                }
+            }
+        });
+
+
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('reserve-btn')) {
+                const card = e.target.closest('.card');
+
+                if (!card) {
+                    return;
+                }
+
+                const itemNameElement = card.querySelector('h3');
+                const itemName = itemNameElement ? itemNameElement.textContent.trim() : '';
+
+                const isClub = card.getAttribute('data-type') === 'club';
+
+                if (isClub) {
+                    alert('تم إرسال طلب انضمامك إلى "' + itemName + '"');
+                } else {
+                    alert('تم الحجز بنجاح!    "' + itemName + '"');
+                }
+            }
+        });
+
+
+        const removeModal = document.getElementById('removeModal');
+        const confirmRemove = document.getElementById('confirmRemove');
+        const cancelRemove = document.getElementById('cancelRemove');
+        const removeText = document.getElementById('removeText');
+
+        let currentRemoveId = null;
+        let currentRemoveName = '';
+
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-btn') || e.target.closest('.remove-btn')) {
+                const button = e.target.classList.contains('remove-btn')
+                    ? e.target
+                    : e.target.closest('.remove-btn');
+
+                if (!button) {
+                    return;
+                }
+
+                const card = button.closest('.card');
+
+                if (!card) {
+                    return;
+                }
+
+                currentRemoveId = button.getAttribute('data-item-id');
+
+                const nameElement = card.querySelector('h3');
+
+                if (nameElement) {
+                    currentRemoveName = nameElement.textContent.trim();
+                } else {
+                    currentRemoveName = 'هذا العنصر';
+                }
+
+                removeText.textContent = 'هل تريد إزالة "' + currentRemoveName + '" من المفضلة؟';
+
+                removeModal.classList.add('show');
+            }
+        });
+
+        confirmRemove.addEventListener('click', function () {
+            if (!currentRemoveId) {
+                removeModal.classList.remove('show');
+                return;
+            }
+
+            const allRemoveButtons = document.querySelectorAll(
+                '.remove-btn[data-item-id="' + currentRemoveId + '"]'
+            );
+
+            allRemoveButtons.forEach(function (btn) {
+                const card = btn.closest('.card');
+
+                if (card) {
+                    card.remove();
+                }
+            });
+
+            alert('تم إزالة "' + currentRemoveName + '" من المفضلة');
+
+            currentRemoveId = null;
+            currentRemoveName = '';
+
+            removeModal.classList.remove('show');
+
+            checkEmptyStates();
+            filterFavorites();
+        });
+
+        cancelRemove.addEventListener('click', function () {
+            removeModal.classList.remove('show');
+        });
+
+        removeModal.addEventListener('click', function (e) {
+            if (e.target === removeModal) {
+                removeModal.classList.remove('show');
+            }
+        });
+
+
+        function filterFavorites() {
+            const activeTab = document.querySelector('.tab.active');
+
+            if (!activeTab) {
+                return;
+            }
+
+            const activeType = activeTab.dataset.tab;
+            const allCards = document.querySelectorAll('.card');
+
+            allCards.forEach(function (card) {
+                const cardType = card.getAttribute('data-type');
+
+                if (activeType === 'all') {
+                    card.style.display = 'block';
+                } else if (activeType === 'clubs') {
+                    card.style.display = cardType === 'club' ? 'block' : 'none';
+                } else if (activeType === 'events') {
+                    card.style.display = cardType === 'event' ? 'block' : 'none';
+                }
+            });
+
+            checkEmptyStates();
+        }
+
+
+        function checkEmptyStates() {
+            const activeTab = document.querySelector('.tab.active');
+
+            if (!activeTab) {
+                return;
+            }
+
+            const activeType = activeTab.dataset.tab;
+
+            const allCardsAll = document.querySelectorAll('#all .card');
+            const clubCards = document.querySelectorAll('#clubs .card[data-type="club"]');
+            const eventCards = document.querySelectorAll('#events .card[data-type="event"]');
+
+            const emptyAll = document.getElementById('empty-all');
+            const emptyClubs = document.getElementById('empty-clubs');
+            const emptyEvents = document.getElementById('empty-events');
+
+            if (emptyAll) {
+                emptyAll.style.display = 'none';
+            }
+
+            if (emptyClubs) {
+                emptyClubs.style.display = 'none';
+            }
+
+            if (emptyEvents) {
+                emptyEvents.style.display = 'none';
+            }
+
+            if (activeType === 'all') {
+                if (allCardsAll.length === 0 && emptyAll) {
+                    emptyAll.style.display = 'block';
+                }
+            }
+
+            if (activeType === 'clubs') {
+                if (clubCards.length === 0 && emptyClubs) {
+                    emptyClubs.style.display = 'block';
+                }
+            }
+
+            if (activeType === 'events') {
+                if (eventCards.length === 0 && emptyEvents) {
+                    emptyEvents.style.display = 'block';
+                }
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            filterFavorites();
+            checkEmptyStates();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مِـداد | Medad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Doran';
+            src: url('font/Doran-Regular.woff2') format('woff2'),
+                 url('font/Doran-Regular.woff') format('woff'),
+                 url('font/Doran-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Doran';
+            src: url('font/Doran-Bold.woff2') format('woff2'),
+                 url('font/Doran-Bold.woff') format('woff'),
+                 url('font/Doran-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --accent: #E8D1A7;
+            --burgundy: #7B1E3A;
+            --burgundy-light: rgba(123, 30, 58, 0.08);
+            --burgundy-shimmer: rgba(123, 30, 58, 0.1);
+            --text-dark: #2D2D2D;
+            --text-light: #555555;
+            --background: #FFFFFF;
+            --off-white: #F9F9F9;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 6px 18px rgba(123, 30, 58, 0.15);
+            --brown: #8B4513;
+            --success: #27ae60;
+            --success-light: rgba(39, 174, 96, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Almarai', 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .main-header {
+            background: transparent;
+            padding: 12px 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid transparent;
+        }
+
+        .header-shell {
+            width: min(1100px, calc(100% - 24px));
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 15px;
+            background: #fff;
+            border-radius: 999px;
+            padding: 8px 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-start {
+            justify-self: start;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+      
+        .header-center {
+            justify-self: center;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-image {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            background: transparent;
+            display: inline-block;
+        }
+
+        .hamburger {
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--burgundy);
+            background: none;
+            border: none;
+            justify-self: end;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+        }
+
+        .hamburger:hover {
+            background: var(--burgundy-light);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .header-shell {
+                grid-template-columns: auto 1fr auto;
+                gap: 10px;
+            }
+            .brand-image {
+                width: 35px;
+                height: 35px;
+            }
+            .hamburger {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+        }
+
+        .nav-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        .menu-content {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(123, 30, 58, 0.1);
+            min-width: 300px;
+        }
+
+        .menu-content a {
+            display: block;
+            font-size: 22px;
+            color: var(--burgundy);
+            text-decoration: none;
+            margin: 20px 0;
+            font-weight: 600;
+            font-family: 'Doran', 'Arial', sans-serif;
+            transition: all 0.3s ease;
+            padding: 12px 25px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-content a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--burgundy-light), transparent);
+            transition: right 0.5s ease;
+        }
+
+        .menu-content a:hover::before {
+            right: 100%;
+        }
+
+        .menu-content a:hover {
+            color: white;
+            background: var(--burgundy);
+            transform: translateX(-10px);
+            box-shadow: 0 5px 15px rgba(123, 30, 58, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            font-size: 32px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            color: var(--burgundy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-btn:hover {
+            background: var(--burgundy);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 6px 18px rgba(123, 30, 58, 0.2);
+        }
+
+        /*  المحتوى الرئيسي  */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px 30px;
+        }
+
+        .page-title {
+            font-family: 'Doran', 'Arial', sans-serif;
+            font-size: 2.5rem;
+            color: var(--burgundy);
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 3px;
+            background: var(--burgundy);
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .clubs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        .club-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .club-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .club-header {
+            position: relative;
+        }
+
+        .club-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .club-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: var(--burgundy);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .member-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--success);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .club-content {
+            padding: 1.5rem;
+        }
+
+        .club-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .club-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            flex: 1;
+            font-size: 1.3rem;
+        }
+
+        .club-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .club-details-btn {
+            background: none;
+            border: none;
+            color: var(--burgundy);
+            cursor: pointer;
+            margin-top: 0.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .club-details-content {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+
+        .club-details-content.active {
+            display: block;
+        }
+
+        .club-details-content p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .club-details-content strong {
+            color: var(--text-dark);
+        }
+
+        .club-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .leave-club-btn {
+            background-color: #f8f8f8;
+            color: var(--text-light);
+            border: 1px solid #ddd;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .leave-club-btn:hover {
+            background-color: #ffebee;
+            color: #c62828;
+            border-color: #ffcdd2;
+        }
+
+        .leave-icon {
+            width: 18px;
+            height: 18px;
+            margin-left: 5px;
+        }
+
+        .membership-stats-simple {
+            background: white;
+            border-radius: 14px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat-simple {
+            text-align: center;
+            padding: 1rem 2rem;
+        }
+
+        .stat-number-simple {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--burgundy);
+            margin-bottom: 0.5rem;
+            font-family: 'Almarai', 'Arial', sans-serif;
+        }
+
+        .stat-text-simple {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-family: 'Almarai', 'Arial', sans-serif;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            background: white;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+
+        .empty-state h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .empty-state p {
+            color: var(--text-light);
+            max-width: 400px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .explore-clubs-btn {
+            background-color: var(--burgundy);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .explore-clubs-btn:hover {
+            background-color: #5a152c;
+            transform: translateY(-2px);
+        }
+
+        .leave-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .leave-modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .leave-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(123, 30, 58, 0.2);
+            min-width: 350px;
+            max-width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leave-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            background: linear-gradient(45deg, var(--burgundy), transparent, var(--burgundy), transparent, var(--burgundy));
+            background-size: 400% 400%;
+            animation: borderAnimation 3s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .leave-content::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: white;
+            border-radius: 18px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .leave-content h3 {
+            color: var(--burgundy);
+            margin-bottom: 20px;
+            font-family: 'Doran', 'Arial', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+
+        .leave-content p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .leave-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .confirm-leave-btn {
+            background: linear-gradient(135deg, var(--burgundy), #5a152c);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: 'Doran', 'Arial', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+            min-width: 120px;
+        }
+
+        .confirm-leave-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+        }
+
+        .cancel-leave-btn {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: 'Doran', 'Arial', sans-serif;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .cancel-leave-btn:hover {
+            background: var(--text-light);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        @keyframes borderAnimation {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .logout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            z-index: 2100;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .logout-modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .logout-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(123, 30, 58, 0.2);
+            min-width: 350px;
+            max-width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logout-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            background: linear-gradient(45deg, var(--burgundy), transparent, var(--burgundy), transparent, var(--burgundy));
+            background-size: 400% 400%;
+            animation: borderAnimation 3s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .logout-content::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: white;
+            border-radius: 18px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .logout-content h3 {
+            color: var(--burgundy);
+            margin-bottom: 20px;
+            font-family: 'Doran', 'Arial', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logout-content p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logout-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .confirm-logout-btn {
+            background: linear-gradient(135deg, var(--burgundy), #5a152c);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: 'Doran', 'Arial', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(123, 30, 58, 0.2);
+            min-width: 120px;
+        }
+
+        .confirm-logout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(123, 30, 58, 0.3);
+        }
+
+        .cancel-logout-btn {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: 'Doran', 'Arial', sans-serif;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .cancel-logout-btn:hover {
+            background: var(--text-light);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+
+
+        /*  الفوتر  */
+        .main-footer {
+            background-color: #ebe2db;
+            width: 100%;
+            padding: 30px 16px 16px;
+            color: var(--burgundy);
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-left, .footer-center, .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-left h3 {
+            color: var(--burgundy);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .footer-icons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .icon-box {
+            width: 35px;
+            height: 35px;
+           
+            color: var(--burgundy);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .icon-box:hover {
+            background-color: #E8D1A7;
+            color: #743014;
+        }
+
+        .footer-center img.footer-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 6px;
+        }
+
+        .footer-center p {
+            font-weight: 600;
+            color: var(--burgundy);
+            font-size: 0.9rem;
+        }
+
+        .footer-right {
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+            color: var(--burgundy);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .footer-right svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--burgundy);
+        }
+
+        @media (max-width: 768px) {
+            .clubs-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .club-actions {
+                flex-direction: column;
+            }
+            
+            .leave-club-btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+            
+            .membership-stats-simple {
+                padding: 1.5rem;
+            }
+
+            .leave-content,
+            .logout-content {
+                min-width: 280px;
+                padding: 30px 20px;
+            }
+
+            .leave-actions,
+            .logout-actions {
+                flex-direction: column;
+            }
+
+            .confirm-leave-btn,
+            .cancel-leave-btn,
+            .confirm-logout-btn,
+            .cancel-logout-btn {
+                width: 100%;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .icon-box {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .club-content {
+                padding: 1rem;
+            }
+            
+            .empty-state {
+                padding: 2rem 1rem;
+            }
+            
+            .stat-number-simple {
+                font-size: 2.5rem;
+            }
+            
+            .stat-text-simple {
+                font-size: 1rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .club-card, .leave-club-btn, .hamburger, .close-btn, .menu-content a {
+                transition: none;
+            }
+            
+            .club-card:hover {
+                transform: none;
+            }
+
+            .leave-content::before,
+            .logout-content::before {
+                animation: none;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-shell">
+            <div class="header-start">
+                <img class="brand-image" src="image/LOGO SW.png" alt="Medad Logo">
+            </div>
+
+            <div class="header-center"></div>
+
+            <button class="hamburger" id="hamburger">☰</button>
+        </div>
+    </header>
+
+    <nav class="nav-menu" id="navMenu">
+        <button class="close-btn" id="closeBtn">&times;</button>
+        <div class="menu-content">
+            <a href="homep.html">الملف الشخصي</a>
+            <a href="events.html">صفحة الفعاليات والأندية</a>
+            <a href="myevents.html">حجوزاتي</a>
+            <a href="myclubs.html">أنديتي</a>
+            <a href="favs.html">تفضيلاتي</a>
+            <a id="logoutLink">تسجيل خروج</a>
+        </div>
+    </nav>
+
+    <!--  المحتوى الرئيسي  -->
+    <div class="container">
+        <h1 class="page-title">أنديتي</h1>
+        <p class="page-subtitle">الأندية الأدبية التي انضممت إليها في منصة مِـداد</p>
+        
+    
+        <div class="membership-stats-simple">
+            <div class="stat-simple">
+                <div class="stat-number-simple">3</div>
+                <div class="stat-text-simple">نادي منضم</div>
+            </div>
+        </div>
+ 
+
+        <div class="clubs-container" id="my-clubs">
+            <!-- نادي أدباء المملكة -->
+            <div class="club-card">
+                <div class="club-header">
+                    <img src="image/event2.jpg" alt="نادي أدباء المملكة">
+                    <div class="club-badge">نادي</div>
+                    <div class="member-badge">عضو</div>
+                </div>
+                <div class="club-content">
+                    <div class="club-title-row">
+                        <h3>نادي أدباء المملكة</h3>
+                    </div>
+                    <p>ملتقى للأدباء من جميع نواحي المملكة لتوفير تجربة تفاعلية مع أقرانهم.</p>
+                    <button class="club-details-btn">التفاصيل ▼</button>
+                    <div class="club-details-content">
+                        <p><strong>الموقع:</strong> الرياض، مركز الملك فهد الثقافي</p>
+                        <p><strong>الاجتماعات:</strong> كل يوم ثلاثاء، 6:00 مساءً</p>
+                        <p><strong>تاريخ الانضمام:</strong> 15 سبتمبر 2024</p>
+                        <p><strong>النشاط:</strong> جلسات حوارية، أمسيات شعرية، ورش عمل أدبية</p>
+                        <p>مجتمع أدبي يهدف إلى دعم المواهب الأدبية السعودية وتطويرها.</p>
+                    </div>
+                    <div class="club-actions">
+                        <button class="leave-club-btn" data-club-id="club-1">
+                            مغادرة
+                            <svg class="leave-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- نادي نبض الحرف -->
+            <div class="club-card">
+                <div class="club-header">
+                    <img src="image/event8.jpg" alt="نادي نبض الحرف">
+                    <div class="club-badge">نادي</div>
+                    <div class="member-badge">عضو</div>
+                </div>
+                <div class="club-content">
+                    <div class="club-title-row">
+                        <h3>نادي نبض الحرف</h3>
+                    </div>
+                    <p>مجمع أدبي يوفر فرصة التعرف على أصول الخط العربي ودمجه في الوقت الحاضر.</p>
+                    <button class="club-details-btn">التفاصيل ▼</button>
+                    <div class="club-details-content">
+                        <p><strong>الموقع:</strong> الرياض، مركز الملك فهد الثقافي</p>
+                        <p><strong>الاجتماعات:</strong> كل يوم أحد، 5:00 مساءً</p>
+                        <p><strong>تاريخ الانضمام:</strong> 2 أكتوبر 2024</p>
+                        <p><strong>النشاط:</strong> ورش خط عربي، محاضرات عن تطور الخط، معارض</p>
+                        <p>يهدف إلى الحفاظ على التراث الخطي وتطويره بأسلوب معاصر.</p>
+                    </div>
+                    <div class="club-actions">
+                        <button class="leave-club-btn" data-club-id="club-2">
+                            مغادرة
+                            <svg class="leave-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- نادي سطور -->
+            <div class="club-card">
+                <div class="club-header">
+                    <img src="image/event1.jpg" alt="نادي سطور">
+                    <div class="club-badge">نادي</div>
+                    <div class="member-badge">عضو</div>
+                </div>
+                <div class="club-content">
+                    <div class="club-title-row">
+                        <h3>نادي سطور</h3>
+                    </div>
+                    <p>ملتقى لمحبي الأدب السعودي وجميع تطبيقاته، يهدف إلى نشر الثقافة الأدبية.</p>
+                    <button class="club-details-btn">التفاصيل ▼</button>
+                    <div class="club-details-content">
+                        <p><strong>الموقع:</strong> جدة، مكتبة الأدب السعودي</p>
+                        <p><strong>الاجتماعات:</strong> كل يوم سبت، 4:00 مساءً</p>
+                        <p><strong>تاريخ الانضمام:</strong> 20 نوفمبر 2024</p>
+                        <p><strong>النشاط:</strong> ندوات أدبية، مسابقات كتابة، نشر أعمال الأعضاء</p>
+                        <p>يركز على دعم الكتاب الشباب ونشر أعمالهم الأدبية.</p>
+                    </div>
+                    <div class="club-actions">
+                        <button class="leave-club-btn" data-club-id="club-3">
+                            مغادرة
+                            <svg class="leave-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="empty-state" id="empty-clubs" style="display: none;">
+            <i>🏛️</i>
+            <h3>لم تنضم إلى أي أندية بعد</h3>
+            <p>انضم إلى الأندية الأدبية لاكتشاف مجتمع من القراء والكتاب المميزين</p>
+            <a href="clubs.html" class="explore-clubs-btn">استكشاف الأندية</a>
+        </div>
+    </div>
+
+    <div class="leave-modal" id="leaveModal">
+        <div class="leave-content">
+            <h3>تأكيد مغادرة النادي</h3>
+            <p>هل أنت متأكد من مغادرة نادي "<span id="leaveClubName">اسم النادي</span>"؟</p>
+            <div class="leave-actions">
+                <button class="confirm-leave-btn" id="confirmLeave">تأكيد</button>
+                <button class="cancel-leave-btn" id="cancelLeave">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-content">
+            <h3>تأكيد تسجيل الخروج</h3>
+            <p>هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟</p>
+            <div class="logout-actions">
+                <button class="confirm-logout-btn" id="confirmLogout">تأكيد</button>
+                <button class="cancel-logout-btn" id="cancelLogout">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!--  الفوتر  -->
+   <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <h3>تواصل معنا</h3>
+                <div class="footer-icons">
+                    <a href="https://x.com/MedadKsu" class="icon-box" title="X">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2H21L14.126 10.088 22 22h-5.905l-4.67-6.726L6.08 22H3l7.31-8.433L2 2h6.08l4.132 5.897L18.244 2zM7.118 4l9.764 13.997h1.999L9.12 4H7.118z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:MedadKsu@gmail.com" class="icon-box" title="Email">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4 4h16v16H4V4zm8 8l8-5H4l8 5zm0 2l-8-5v10h16V9l-8 5z"/>
+                        </svg>
+                    </a>
+                    
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <img src="image/LOGO SW.png" alt="شعار مداد" class="footer-logo">
+                <p>© جميع الحقوق محفوظة 2025</p>
+            </div>
+
+            <div class="footer-right">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13401 2 5 5.13401 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13401 15.866 2 12 2Z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                </svg>
+                <span>المملكة العربية السعودية</span>
+            </div>
+        </div>
+    </footer>
+      
+
+
+
+    <script>
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('club-details-btn')) {
+                const detailsContent = e.target.nextElementSibling;
+                detailsContent.classList.toggle('active');
+                e.target.textContent = detailsContent.classList.contains('active') ? 
+                    'التفاصيل ▲' : 'التفاصيل ▼';
+            }
+        });
+
+        const leaveModal       = document.getElementById('leaveModal');
+        const confirmLeaveBtn  = document.getElementById('confirmLeave');
+        const cancelLeaveBtn   = document.getElementById('cancelLeave');
+        const leaveClubNameEl  = document.getElementById('leaveClubName');
+        let currentClubCard    = null;
+        let currentClubName    = '';
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('leave-club-btn') || e.target.closest('.leave-club-btn')) {
+                const button = e.target.classList.contains('leave-club-btn') ? e.target : e.target.closest('.leave-club-btn');
+                currentClubCard = button.closest('.club-card');
+                currentClubName = currentClubCard.querySelector('h3').textContent;
+
+                leaveClubNameEl.textContent = currentClubName;
+                leaveModal.classList.add('show');
+            }
+        });
+
+        confirmLeaveBtn.addEventListener('click', function() {
+            if (currentClubCard) {
+                currentClubCard.style.opacity = '0.5';
+                currentClubCard.style.pointerEvents = 'none';
+
+                setTimeout(function() {
+                    currentClubCard.remove();
+                    alert(`تم مغادرة نادي "${currentClubName}" بنجاح`);
+                    updateClubCount();
+                    checkEmptyState();
+                }, 500);
+            }
+            leaveModal.classList.remove('show');
+        });
+
+        cancelLeaveBtn.addEventListener('click', function() {
+            leaveModal.classList.remove('show');
+        });
+
+        leaveModal.addEventListener('click', function(e) {
+            const content = leaveModal.querySelector('.leave-content');
+            if (!content.contains(e.target)) {
+                leaveModal.classList.remove('show');
+            }
+        });
+
+        function updateClubCount() {
+            const myClubs = document.querySelectorAll('#my-clubs .club-card');
+            const clubCountElement = document.querySelector('.stat-number-simple');
+            clubCountElement.textContent = myClubs.length;
+        }
+        
+        function checkEmptyState() {
+            const myClubs = document.querySelectorAll('#my-clubs .club-card');
+            if (myClubs.length === 0) {
+                document.getElementById('empty-clubs').style.display = 'block';
+            } else {
+                document.getElementById('empty-clubs').style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkEmptyState();
+        });
+
+        const hamburger   = document.getElementById('hamburger');
+        const navMenu     = document.getElementById('navMenu');
+        const closeBtn    = document.getElementById('closeBtn');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.add('show');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            navMenu.classList.remove('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (navMenu.classList.contains('show') &&
+                !navMenu.contains(e.target) &&
+                e.target !== hamburger) {
+                navMenu.classList.remove('show');
+            }
+        });
+
+        const logoutLink       = document.getElementById('logoutLink');
+        const logoutModal      = document.getElementById('logoutModal');
+        const confirmLogoutBtn = document.getElementById('confirmLogout');
+        const cancelLogoutBtn  = document.getElementById('cancelLogout');
+
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            logoutModal.classList.add('show');
+            navMenu.classList.remove('show');
+        });
+
+        confirmLogoutBtn.addEventListener('click', function() {
+            alert('تم تسجيل الخروج بنجاح!');
+            window.location.href = 'HomePage.html';
+        });
+
+        cancelLogoutBtn.addEventListener('click', function() {
+            logoutModal.classList.remove('show');
+        });
+
+        logoutModal.addEventListener('click', (e) => {
+            const content = logoutModal.querySelector('.logout-content');
+            if (!content.contains(e.target)) {
+                logoutModal.classList.remove('show');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (navMenu.classList.contains('show')) {
+                    navMenu.classList.remove('show');
+                }
+                if (logoutModal.classList.contains('show')) {
+                    logoutModal.classList.remove('show');
+                }
+                if (leaveModal.classList.contains('show')) {
+                    leaveModal.classList.remove('show');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
