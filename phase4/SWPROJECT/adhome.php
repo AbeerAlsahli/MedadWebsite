@@ -1104,10 +1104,6 @@ $profileImage = !empty($user['profile_image']) ? $user['profile_image'] : 'image
         <label for="editBio" class="form-label">نبذة عني</label>
         <textarea id="editBio" name="bio" class="form-input" rows="4" placeholder="اكتب نبذة عنك هنا..."><?= htmlspecialchars($bio === 'لم يتم إضافة نبذة عن المسؤول بعد.' ? '' : $bio) ?></textarea>
       </div>
-<div class="form-group">
-        <label for="editnumber" class="form-label">رقم الجوال</label>
-        <textarea id="editnumber" name="number" class="form-input" rows="4" placeholder=""></textarea>
-      </div>
       <div class="preferences">
         <h3>نوع الإشعارات</h3>
         <div class="notification-options">
